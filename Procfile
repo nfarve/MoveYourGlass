@@ -1,0 +1,1 @@
+web: gunicorn moveyourglass.wsgi --log-file -
