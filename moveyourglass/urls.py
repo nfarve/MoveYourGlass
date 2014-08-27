@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^register/', include('registration.urls')),
     url(r'^process/', include('process.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^id/', include('getId.urls'))
-    url(r'^summary/(?P<userid>[\w\-]+)', 'process.views.summary')
+    url(r'^id/', include('getId.urls')),
+    url(r'^summary/(?P<userid>[\w\-]+)', 'process.views.summary'),
     url(r'^summary/(?P<userid>[\w\-]+)/glass', 'process.views.glass')
 )
