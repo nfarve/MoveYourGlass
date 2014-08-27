@@ -89,7 +89,6 @@ def process(request):
                 data[:,8]=zAveAbsDiff
                 data[:,9]=averageResultant
                 data = data.astype(numpy.float32)
-                print "check stop 2"
                 previous = numpy.load(('/Users/niajafarve/Development/moveyourglass/traindata.npz'))
                 alldata = previous['alldata']
                 labels = previous['labels']
@@ -129,5 +128,25 @@ def process(request):
             {'form': form},
             context_instance=RequestContext(request)
             )
+
+def summary(request, userid):
+    userData = Activity.objects.get(userid=userid)
+    totals = userData.currentTotal
+    totals = totals.split(',')
+    print totals
+    walkingTotal = 0
+    sittingTotal = 0
+    runningTotal = 0
+    for i in range(totals):
+        if totals[i]==0:
+            sittingTotal+=1
+        elif totals[i]==1:
+            walkingTotal +=1
+        elif totals[i]==2:
+            runningTotal+=1
+    return render_to_response('summary.html',
+        {'walking':walkingTotal, 'sitting':sittingTotal, 'running':runningTotal},
+        context_instance=RequestContext(request)
+        )
 
 
