@@ -1,16 +1,32 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Move Your Glass</title>
+        <link rel= "stylesheet" type="text/css" href="{% static 'style.css' %}" />
     </head>
 
-    <body>
-       
-        {{walking}}
+    <body style="background-color:rgb(213, 232, 253);">
+        <h1 style="text-align:center;">Activity Summary</h1> 
+
+        <div class ="block" id = "walking">
+            <h1 class="title"> Walking</h1>
+            <h1 class="value">{{walking}}</h1>
+            <h2 class="unit"> Minutes</h2>
+        </div>
         <br>
-        {{running}}
+        <div class ="block" id = "sitting">
+            <h1 class="title"> Sitting</h1>
+            <h1 class="value">{{sitting}}</h1>
+            <h2 class="unit"> Minutes</h2>
+        </div>
         <br>
-        {{sitting}}
+        <div class ="block" id = "running">
+            <h1 class="title"> Running</h1>
+            <h1 class="value">{{running}}</h1>
+            <h2 class="unit"> Minutes</h2>
+        </div>
         <br>
     </body>
 </html>

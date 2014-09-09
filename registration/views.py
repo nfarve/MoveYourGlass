@@ -4,6 +4,7 @@ from registration.forms import UserForm, UserProfileForm, UserRegisteredForm
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from getId.models import Id
+from registration.models import UserProfile
 from django import forms
 import string
 import random
@@ -70,12 +71,14 @@ def register(request):
             )
 
 def checkIfRegistered(request, user_id):
-    print user_id
+    #print user_id
     try:
         user = User.objects.filter(username=user_id)
     except User.DoesNotExist:
-        return HttpResponse("False")
-    return HttpResponse("True")
+        return HttpResponse("False,null")
+    user = User.objects.get(username=user_id)
+    mode = user.userprofile.mode
+    return HttpResponse("True,"+str(mode))
 
 def name_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))

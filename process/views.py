@@ -23,6 +23,8 @@ def process(request):
         #form.x = int(request.POST['x'])
         if form.is_valid():
             userid = request.POST['userid']
+            if 'flag' in request.POST:
+                suggestionFlag =  request.POST['flag']
             if not Activity.objects.filter(userid=userid).exists():
                 print "does not exists"
                 form.save()
@@ -31,7 +33,7 @@ def process(request):
             y = request.POST["y"]
             z = request.POST["z"]
             current_data.x+=(","+x)
-            print current_data.x
+            #print current_data.x
             current_data.y+=(","+y)
             current_data.z+=(","+z)
             xdata = current_data.x.split(",")
@@ -39,7 +41,7 @@ def process(request):
             zdata = current_data.z.split(",")
             count = len(xdata)
             dataBuffer = 10
-            print xdata
+            #print xdata
             if count >= dataBuffer:
 
                 xdata = map(float, xdata)
@@ -102,14 +104,20 @@ def process(request):
                 guess = result[0][0]
                 if guess == 0.0:
                     current_data.currentTotal+="0,"
+                    if suggestionFlag:
+                        current_data.resultOn +="0,"
                     current_data.save()
                     return render_to_response('result.html',{'result': "sitting"},context_instance=RequestContext(request))
                 elif guess ==1.0:
                     current_data.currentTotal+="1,"
+                    if suggestionFlag:
+                        current_data.resultOn +="1,"
                     current_data.save()
                     return render_to_response('result.html',{'result': "walking"},context_instance=RequestContext(request))
                 else:
                     current_data.currentTotal+="2,"
+                    if suggestionFlag:
+                        current_data.resultOn +="2,"
                     current_data.save()
                     return render_to_response('result.html',{'result': "running"},context_instance=RequestContext(request))
             else:
@@ -129,24 +137,53 @@ def process(request):
             context_instance=RequestContext(request)
             )
 
+
+def toMinutes(count):
+    minutes = count/120
+    return minutes
 def summary(request, userid):
     userData = Activity.objects.get(userid=userid)
     totals = userData.currentTotal
     totals = totals.split(',')
-    print totals
     walkingTotal = 0
     sittingTotal = 0
     runningTotal = 0
-    for i in range(totals):
-        if totals[i]==0:
+    for i in range(0,len(totals)-1):
+        if int(totals[i])==0:
             sittingTotal+=1
-        elif totals[i]==1:
+
+        elif int(totals[i])==1:
             walkingTotal +=1
-        elif totals[i]==2:
+        elif int(totals[i])==2:
             runningTotal+=1
+    walkingTotal = toMinutes(walkingTotal)
+    sittingTotal = toMinutes(sittingTotal)
+    #print sittingTotal
+    runningTotal = toMinutes(runningTotal)
     return render_to_response('summary.html',
         {'walking':walkingTotal, 'sitting':sittingTotal, 'running':runningTotal},
         context_instance=RequestContext(request)
         )
+
+def glass(request, userid):
+    userData = Activity.objects.get(userid=userid)
+    totals = userData.currentTotal
+    totals = totals.split(',')
+    walkingTotal = 0
+    sittingTotal = 0
+    runningTotal = 0
+    for i in range(0,len(totals)-1):
+        if int(totals[i])==0:
+            sittingTotal+=1
+
+        elif int(totals[i])==1:
+            walkingTotal +=1
+        elif int(totals[i])==2:
+            runningTotal+=1
+    walkingTotal = toMinutes(walkingTotal)
+    sittingTotal = toMinutes(sittingTotal)
+    #print sittingTotal
+    runningTotal = toMinutes(runningTotal)
+    return HttpResponse(str(sittingTotal) +"," + str(walkingTotal) +"," + str(runningTotal))
 
 

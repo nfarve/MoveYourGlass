@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^process/', include('process.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^id/', include('getId.urls')),
-    url(r'^summary/(?P<userid>[\w\-]+)', 'process.views.summary'),
-    url(r'^summary/(?P<userid>[\w\-]+)/glass', 'process.views.glass')
+    url(r'^summary/(?P<userid>\w{10})/glass', 'process.views.glass'),
+    url(r'^summary/(?P<userid>\w{10})/', 'process.views.summary'),
+    
 )
