@@ -1,0 +1,8 @@
+.block{
+	border:solid; 
+	border-radius: 20px; 
+	position:absolute; 
+	height: 40%;
+	width: 30%; 
+	background-color:#FF0000;
+}
