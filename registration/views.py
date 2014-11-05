@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth import authenticate, login
 from registration.forms import UserForm, UserProfileForm, UserRegisteredForm
 from django.template import RequestContext
 from django.contrib.auth.models import User
@@ -82,3 +83,47 @@ def checkIfRegistered(request, user_id):
 
 def name_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
+
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        try: 
+            username = User.objects.get(email=email).username
+        except User.DoesNotExist:
+            return HttpResponse("This email is not registered")
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return HttpResponseRedirect('/summary/'+user.username)
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print "Invalid login details: {0}, {1}".format(email, password)
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return HttpResponse("something")
+
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
+# Use the login_required() decorator to ensure only those logged in can access the view.
+@login_required
+def logout_user(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/')

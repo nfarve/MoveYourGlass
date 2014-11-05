@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'summary',
     'process',
     'getId',
+    'landing',
+    'contactUs',
     
 
 )
@@ -58,18 +60,6 @@ ROOT_URLCONF = 'moveyourglass.urls'
 
 WSGI_APPLICATION = 'moveyourglass.wsgi.application'
 
-import dj_database_url
-#DATABASES['default'] =  dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-# DATABASES = {
-#     'default':dj_database_url.config()
-# }
 
 DATABASES = {
     'default': {
@@ -106,3 +96,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIR=(
     os.path.join(BASE_DIR, 'static'),
 )
+
+#Email Backend
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'niaja.farve@gmail.com'
+EMAIL_HOST_PASSWORD = 'Scuba21!'
+EMAIL_PORT = 587

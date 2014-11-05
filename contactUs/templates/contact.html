@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+	<br>
+	<div class="container">
+		<h1 style="text-align:center" class="col-md-6 col-md-offset-3">Have a question, feedback or found a bug? Use the form below:</h1>
+		<br>
+		<form role = "form" id="user_form" method="post" action="/contact/" enctype="multipart/form-data" class="col-md-4 col-md-offset-4">
+
+	        {% csrf_token %}
+
+	        <!-- Display each form. The as_p method wraps each element in a paragraph
+	             (<p>) element. This ensures each element appears on a new line,
+	             making everything look neater. -->
+	        {% for field in ContactForm %}
+		    <div class="fieldWrapper">
+		    	<div class="form-group">
+		        {{ field.errors }}
+		        {{ field.label_tag }} {{ field }}
+		    </div>
+		    </div>
+			{% endfor %}
+
+
+	        <!-- Provide a button to click to submit the form. -->
+	        <input type="submit" name="submit" value="Send" class="btn btn-primary"/>
+		</form>
+	</div>
+
+
+	<div class="modal fade" id="thanks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myModalLabel">We Got Your Email</h4>
+		      </div>
+	      <div class="modal-body">
+	        Thanks for you message!
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" onclick="location.href='/'">Go back to homepage.</button>
+	      </div>
+    	</div>
+  		</div>
+	</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script type="text/javascript">
+	if(window.location.hash) {
+	    $(window).load(function(){
+	        $('#thanks').modal('show');
+	    });
+	}
+	 
+</script>
+{% endblock %}

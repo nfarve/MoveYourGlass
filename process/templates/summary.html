@@ -1,13 +1,8 @@
+{% extends "base.html" %}
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Move Your Glass</title>
-        <link rel= "stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    </head>
-
-    <body style="background-color:rgb(213, 232, 253);">
+{% block content %}
+        <div class="container">
         <h1 style="text-align:center;">Activity Summary</h1> 
 
         <div class ="block" id = "walking">
@@ -27,6 +22,12 @@
             <h1 class="value">{{running}}</h1>
             <h2 class="unit"> Minutes</h2>
         </div>
-        <br>
-    </body>
-</html>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <hr class="featurette-divider">
+       
+{% endblock %}

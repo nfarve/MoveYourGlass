@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from process.forms import ProcessForm
 from django.template import RequestContext
 from process.models import Activity
@@ -142,7 +142,10 @@ def toMinutes(count):
     minutes = count/120
     return minutes
 def summary(request, userid):
-    userData = Activity.objects.get(userid=userid)
+    try:
+        userData = Activity.objects.get(userid=userid)
+    except Activity.DoesNotExist:
+        return HttpResponseRedirect('/')
     totals = userData.currentTotal
     totals = totals.split(',')
     walkingTotal = 0
@@ -166,7 +169,10 @@ def summary(request, userid):
         )
 
 def glass(request, userid):
-    userData = Activity.objects.get(userid=userid)
+    try:
+        userData = Activity.objects.get(userid=userid)
+    except Activity.DoesNotExist:
+        return HttpResponse("Error: ID NOT VALID")
     totals = userData.currentTotal
     totals = totals.split(',')
     walkingTotal = 0

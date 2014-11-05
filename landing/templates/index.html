@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+    <!-- Full Width Image Header -->
+    <header class="header-image">
+        <div class="headline">
+            <div class="container">
+                <h1>Move Your Glass</h1>
+                <h2>the app that makes you move</h2>
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal stuff -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Login</h4>
+
+
+      </div>
+      <div class="modal-body">
+        
+        <form id="login_form" method="post" action="/login/">
+            {% csrf_token %}
+            Email Address <input type="email" class="form-control" name="email" value="" size="50" />
+            <br />
+            Password: <input type="password" class="form-control" name="password" value="" size="50" />
+            <br />
+
+            <input type="submit" class="btn btn-primary" value="submit" />
+        </form>
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" onclick="location.href='register'">I don't have an account </button>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <hr class="featurette-divider">
+
+        <!-- First Featurette -->
+        <div class="featurette" id="about">
+            <img class="featurette-image img-circle img-responsive pull-right" src="{% static 'images/getup.png' %}">
+            <h2 class="featurette-heading">Get Up 
+                <span class="text-muted">Move More</span>
+            </h2>
+            <p class="lead">Move Your Glass is a behavior and activity monitoring application. The application keeps track of physical activities the wearer engages in. Users are served suggestions at critical moments encouraging an activity or behavior change.  A dashboard system will also give a summary of the users activities. The objective of the application is to, over time, enforce better lifestyle choices that would lead to more physical activity and social interactions.</p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- Second Featurette -->
+        <div class="featurette" id="get">
+            <img class="featurette-image img-circle img-responsive pull-left" src="{% static 'images/download.png' %}">
+            <h2 class="featurette-heading">Want it?
+                <span class="text-muted">Here's how to get it.</span>
+            </h2>
+            <p class="lead">To get Move Your Glass on your google glass device: <ol> <li> Download from the glass store or here.</li><li> Register your device <a href="/register/"> here</a> using the id number given when you launch Move Your Glass.</li></ol> </p>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- Third Featurette -->
+        <div class="featurette" id="contact">
+            <img class="featurette-image img-circle img-responsive pull-right" src="{% static 'images/questions.png' %}">
+            <h2 class="featurette-heading">Contact Us
+                <span class="text-muted">Have Questions?</span>
+            </h2>
+            <p class="lead">Move Your Glass is very new, so we expect lots of bugs. It is also always changing. If you have suggestions, feedback or found a bug feel free to let us know using the form <a href="/contact/">here.</a></p>
+        </div>
+
+        <hr class="featurette-divider">
+{% endblock %}
+       
