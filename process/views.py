@@ -192,6 +192,7 @@ def glass(request, userid):
     runningTotal = toMinutes(runningTotal)
     return HttpResponse(str(sittingTotal) +"," + str(walkingTotal) +"," + str(runningTotal))
 
+@csrf_exempt
 def stats(request):
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
