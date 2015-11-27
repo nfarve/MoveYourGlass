@@ -1,8 +1,9 @@
-from process.models import Activity
+from process.models import Activity,DailyStats
 from django import forms
 from getId.models import Id
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.forms.models import inlineformset_factory
 
 
 def validate_id(value):
@@ -20,3 +21,15 @@ class ProcessForm(forms.ModelForm):
     class Meta:
         model = Activity
         fields = ('userid', 'x', 'y', 'z', 'flag')
+
+class DailyStatForm(forms.ModelForm):
+    userid = forms.CharField(validators = [validate_id], required=True)
+    date = forms.DateField()
+    walkingTime = forms.CharField()
+    sittingTime = forms.CharField()
+    suggestionCount = forms.CharField()
+    class Meta:
+        model = DailyStats
+        fields = ('userid', 'date', 'walkingTime', 'sittingTime', 'suggestionCount')
+
+

@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from process.forms import ProcessForm
+from process.forms import ProcessForm,DailyStatForm
 from django.template import RequestContext
-from process.models import Activity
+from process.models import Activity, DailyStats
 import string
 import random
 import numpy
@@ -192,4 +192,36 @@ def glass(request, userid):
     runningTotal = toMinutes(runningTotal)
     return HttpResponse(str(sittingTotal) +"," + str(walkingTotal) +"," + str(runningTotal))
 
+def stats(request):
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        form = DailyStatForm(data=request.POST)
+        #form.x = int(request.POST['x'])
+        if form.is_valid():
+            userid = form.cleaned_data['userid']
+            date = form.cleaned_data['date']
+            walkingTime = form.cleaned_data['walkingTime']
+            sittingTime = form.cleaned_data['sittingTime']
+            suggestionCount = form.cleaned_data['suggestionCount']
+            if not DailyStats.objects.filter(userid=userid, date=date).exists():
+                return HttpResponse("Saved")
+                form.save()
+            else:
+                current_data = DailyStats.objects.get(userid=userid, date=date)
+                current_data.walkingTime = walkingTime
+                current_data.sittingTime = sittingTime
+                current_data.suggestionCount = suggestionCount
+                current_data.save()
+                return HttpResponse("Saved")
+        else:
+            print form.errors
+    else:
+        form = DailyStatForm()
+
+    # Render the template depending on the context.
+    return render_to_response(
+            'stats.html',
+            {'form': form},
+            context_instance=RequestContext(request)
+            )
 

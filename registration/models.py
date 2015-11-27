@@ -17,11 +17,9 @@ class UserProfile(models.Model):
     )
     sittingDaily = models.IntegerField("How much time would you like to spend sitting daily", blank=True)
     walkingDaily = models.IntegerField("How much time would you like to spend walking daily", blank=True)
-    runningDaily = models.IntegerField("How much time would you like to spend running daily", blank=True)
     sittingWeekly = models.IntegerField("How much time would you like to spend sitting weekly", blank=True)
     walkingWeekly = models.IntegerField("How much time would you like to spend walking weekly", blank=True)
-    runningWeekly = models.IntegerField("How much time would you like to spend running weekly",blank=True)
-
+   
     ageGroup = models.IntegerField("What age group do you belong to", max_length=25, choices = AGE_GROUPS, default=EARLY_CAREER)
     sex = models.BooleanField()
     workoutFreq = models.IntegerField("How often do you workout per week")
@@ -31,7 +29,6 @@ class UserProfile(models.Model):
     joined = models.DateTimeField("Date joined", auto_now_add = True)
     sittingEstimate = models.IntegerField("How much time do you think you spend sitting daily",blank=False)
     walkingEstimate = models.IntegerField("How much time do you think you spend walking daily",blank=False)
-    runningEstimate = models.IntegerField("How much time do you think you spend running daily",blank=False)
 
     def __unicode__(self):
         return self.user.username

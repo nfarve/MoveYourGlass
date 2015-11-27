@@ -15,15 +15,15 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'first_name', 'last_name')
+        fields = ('email', 'password')
 
 class UserProfileForm(forms.ModelForm):
     sex = forms.TypedChoiceField(coerce=lambda x: x=='True',choices=((True,'Male'), (False, 'Female')), widget = forms.RadioSelect)
     userid = forms.CharField(validators = [validate_id], required=True)
     class Meta:
         model = UserProfile
-        fields = ('userid','sittingDaily', 'walkingDaily', 'runningDaily', 'sittingWeekly', 'walkingWeekly', 'runningWeekly', 'ageGroup', 'sex', 
-                    'workoutFreq', 'sittingTime','participant', 'sittingEstimate', 'walkingEstimate', 'runningEstimate')
+        fields = ('userid','sittingDaily', 'walkingDaily', 'sittingWeekly', 'walkingWeekly', 'ageGroup', 'sex', 
+                    'workoutFreq', 'sittingTime','participant', 'sittingEstimate', 'walkingEstimate')
 
 
 class UserRegisteredForm(forms.ModelForm):

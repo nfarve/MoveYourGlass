@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'getId',
     'landing',
     'contactUs',
-    
+    'bootstrapform',
 
 )
 

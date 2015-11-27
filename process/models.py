@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Activity(models.Model):
@@ -13,4 +14,15 @@ class Activity(models.Model):
     
     def __unicode__(self):
     	return self.userid
+
+class DailyStats(models.Model):
+    userid = models.CharField(max_length=15)
+    date = models.DateField()
+    walkingTime = models.CharField(max_length=10000000)
+    sittingTime = models.CharField(max_length=10000000)
+    suggestionCount = models.CharField(max_length=10000000)
+    
+    def __unicode__(self):
+        return str(self.id)+" , "+self.userid
+    
 
