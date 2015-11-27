@@ -24,7 +24,7 @@ class ProcessForm(forms.ModelForm):
 
 class DailyStatForm(forms.ModelForm):
     userid = forms.CharField(validators = [validate_id], required=True)
-    date = forms.DateField()
+    date = forms.CharField()
     walkingTime = forms.CharField()
     sittingTime = forms.CharField()
     suggestionCount = forms.CharField()

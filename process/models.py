@@ -17,7 +17,7 @@ class Activity(models.Model):
 
 class DailyStats(models.Model):
     userid = models.CharField(max_length=15)
-    date = models.DateField()
+    date = models.CharField(max_length=15)
     walkingTime = models.CharField(max_length=10000000)
     sittingTime = models.CharField(max_length=10000000)
     suggestionCount = models.CharField(max_length=10000000)
