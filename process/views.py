@@ -205,8 +205,8 @@ def stats(request):
             sittingTime = form.cleaned_data['sittingTime']
             suggestionCount = form.cleaned_data['suggestionCount']
             if not DailyStats.objects.filter(userid=userid, date=date).exists():
-                return HttpResponse("Saved")
                 form.save()
+                return HttpResponse("Saved")
             else:
                 current_data = DailyStats.objects.get(userid=userid, date=date)
                 current_data.walkingTime = walkingTime

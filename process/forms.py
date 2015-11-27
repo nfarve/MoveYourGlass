@@ -23,7 +23,7 @@ class ProcessForm(forms.ModelForm):
         fields = ('userid', 'x', 'y', 'z', 'flag')
 
 class DailyStatForm(forms.ModelForm):
-    userid = forms.CharField(validators = [validate_id], required=True)
+    userid = forms.CharField(required=True)
     date = forms.CharField()
     walkingTime = forms.CharField()
     sittingTime = forms.CharField()
