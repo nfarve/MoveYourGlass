@@ -42,7 +42,7 @@ def register(request):
             # This delays saving the model until we're ready to avoid integrity problems.
             profile = profile_form.save(commit=False)
             profile.user = user
-            profile.mode = random.randint(0,2)
+            profile.mode = random.randint(0,1)
 
             # Now we save the UserProfile model instance.
             profile.save()
