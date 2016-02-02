@@ -3,7 +3,9 @@
 
 {% block content %}
     <div class="container">
-        
+        {% for stat in dailyStat %}
+            {{stat.date}}
+        {% endfor %}
     </div>
     <br>
     <br>
