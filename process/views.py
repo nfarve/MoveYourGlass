@@ -226,6 +226,6 @@ def stats(request):
             context_instance=RequestContext(request)
             )
 
-def allDailyStats():
+def allDailyStats(request):
     dailyStats = DailyStats.objects.all()
-    return render_to_response('data.html', {'dailyStats': dailyStats}, context_instance=RequestContext(request))
+    return render_to_response('data.html', {'dailyStats': dailyStats}, context_instance=RequestContext(reques))
