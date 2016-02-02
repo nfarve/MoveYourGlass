@@ -12,14 +12,16 @@
                 <td>Suggestion Count </td>
             </tr>
 
-        {% for stat in dailyStats %}
-            <tr>
-                <td>{{stat.userid}}</td>
-                <td>{{stat.date}}</td>
-                <td>{{stat.walkingTime}}</td>
-                <td>{{stat.sittingTime}}</td>
-                <td>{{stat.suggestionCount}}</td>
-        {% endfor %}
+            {% for stat in dailyStats %}
+                <tr>
+                    <td>{{stat.userid}}</td>
+                    <td>{{stat.date}}</td>
+                    <td>{{stat.walkingTime}}</td>
+                    <td>{{stat.sittingTime}}</td>
+                    <td>{{stat.suggestionCount}}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
     <br>
     <br>
