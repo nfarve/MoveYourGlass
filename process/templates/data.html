@@ -3,8 +3,22 @@
 
 {% block content %}
     <div class="container">
+        <table>
+            <tr>
+                <td>User Id </td>
+                <td>Date </td>
+                <td>Walking Time </td>
+                <td>Sitting Time </td>
+                <td>Suggestion Count </td>
+            </tr>
+
         {% for stat in dailyStats %}
-            {{stat.date}}
+            <tr>
+                <td>{{stat.userid}}</td>
+                <td>{{stat.date}}</td>
+                <td>{{stat.walkingTime}}</td>
+                <td>{{stat.sittingTime}}</td>
+                <td>{{stat.suggestionCount}}</td>
         {% endfor %}
     </div>
     <br>
